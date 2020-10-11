@@ -1,13 +1,11 @@
-//const Employee = require('../lib/Employee');
+const Employee = require('../lib/Employee');
 const { test } = require('@jest/globals');
-
-//const { jest } = require('@jest/globals')
 
 jest.mock('../lib/Employee');
 
 //test creating Employee info object
 test('creates Employee object', () => {
-    const employee = new employee('Sarah');
+    const employee = new Employee('Sarah');
 
     expect(employee.name).toBe('Sarah');
     expect(employee.id).toEqual(expect.any(Number));
