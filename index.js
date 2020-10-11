@@ -4,88 +4,142 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const fs = require('fs');
 const inquirer = require('inquirer');
+const { ADDRCONFIG } = require('dns');
 
-function Index() {
-    this.employee;
-    this.employeeId;
-    this.employeeEmail;
-}
+teamMembers = [];
+idArray = [];
 
-Index.prototype.getUserName = function () {
-    inquirer
-        .prompt({
-            type: 'text',
-            name: 'name',
-            message: "What is your team manager's name?",
-            validate: employeeInput => {
-                if (employeeInput) {
-                    return true;
-                }
-                else {
-                    console.log('Please enter the name of your team manager!');
-                    return false;
-                }
-            }
-    })
-    //destructre name from prompt object
-    .then(({ name }) => {
-        this.employee = new Employee(name);
+function createManager() {
+    console.log("Please build your team");
+    inquirer.prompt([
+        {
+            type:"input",
+            name: "managerName",
+            message: "What is the team manager's name?"
+        },
+        {
+            type: "input",
+            name: "managerId",
+            message: "What is your team manager's employee id?"
+        },
+        {
+            type: "input",
+            name: "managerEmail",
+            message: "What is your team manager's email?"
+        },
+        {
+            type: "input",
+            name: "managerOfficeNumber",
+            message: "What is your team manager's office number?"
+        }
+    ])
+    .then(answers => {
+        //console.log("These are answers inside of createManager(): ", answers);
 
-        this.getIdNum();
-    });
-
-
-};
-
-Index.prototype.getIdNum() = function () {
-    inquirer
-        .prompt({
-            type: 'text',
-            name: 'id',
-            message: "What is your team manager's employee ID?",
-            validate: employeeInput => {
-                if (employeeInput) {
-                    return true;
-                }
-                else {
-                    console.log('Please enter the employee ID of your team manager!');
-                    return false;
-                }
-            }
-        })
-        .then(({ id }) => {
-            this.employeeId = new Employee(id);
-
-            this.getEmail();
-        });
-
+        const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOfficeNumber)
         
+        teamMembers.push(manager);
+        idArray.push(answers.managerId);
+        
+        createTeam();
+    });
 }
 
-Index.prototype.getEmail() = function () {
-    inquirer
-        .prompt({
-            type: 'text',
-            name: 'email',
-            message: "What is your team manager's email?",
-            validate: employeeInput => {
-                if (employeeInput) {
-                    return true;
-                }
-                else {
-                    console.log('Please enter the email of your team manager!');
-                    return false;
-                }
-            }
-        })
-        .then(({ email }) => {
-            this.this.employeeEmail = new Employee(email);
-            console.log(this.email)
-        });
+function createTeam() {
+    inquirer.prompt([
+        {
+            type: "list",
+            name: "memberChoice",
+            message: "Would you like to add another team member?",
+            choices: ['Engineer', 'Intern', "I don't want to add another team member"]
+        }
+    ])
+    .then(userChoice => {
+        console.log("userChoice inside of createTeam(): ", userChoice);
 
-
+        switch (userChoice.memberChoice) {
+            case "Engineer":
+                addEngineer();
+                break;
+            case "Intern":
+                addIntern();
+                break;
+            case "I don't want to add another team member":
+                //add function to create file
+                //console.log("create html");
+                break;
+        }
+    })
 }
 
-module.exports = Index;
+function addEngineer() {
+    inquirer.prompt([
+        {
+            type:"input",
+            name: "engineerName",
+            message: "What is the engineer's name?"
+        },
+        {
+            type: "input",
+            name: "engineerId",
+            message: "What is your engineer's employee id?"
+        },
+        {
+            type: "input",
+            name: "engineerEmail",
+            message: "What is your engineer's email?"
+        },
+        {
+            type: "input",
+            name: "engineerGithub",
+            message: "What is your engineer's github username?"
+        }
+    ])
+    .then(answers => {
+        //console.log("These are answers inside of addEngineer(): ", answers);
 
-new Index().getUserName();
+        const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub)
+        
+        teamMembers.push(engineer);
+        idArray.push(answers.engineerId);
+        
+        createTeam();
+    });
+}
+
+function addIntern() {
+    inquirer.prompt([
+        {
+            type:"input",
+            name: "internName",
+            message: "What is the intern's name?"
+        },
+        {
+            type: "input",
+            name: "internId",
+            message: "What is your intern's employee id?"
+        },
+        {
+            type: "input",
+            name: "internEmail",
+            message: "What is your intern's email?"
+        },
+        {
+            type: "input",
+            name: "internSchool",
+            message: "What school is your intern attending?"
+        }
+    ])
+    .then(answers => {
+        //console.log("These are answers inside of addIntern(): ", answers);
+
+        const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool)
+        
+        teamMembers.push(intern);
+        idArray.push(answers.internId);
+        
+        createTeam();
+    });
+}
+
+createManager();
