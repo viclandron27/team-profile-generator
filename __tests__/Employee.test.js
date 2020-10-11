@@ -1,19 +1,20 @@
 const Employee = require('../lib/Employee');
-const { test } = require('@jest/globals');
+const { test, expect } = require('@jest/globals');
 
-jest.mock('../lib/Employee');
-
-//test creating Employee info object
-test('creates Employee object', () => {
-    const employee = new Employee('Sarah');
-
-    expect(employee.name).toBe('Sarah');
-    expect(employee.id).toEqual(expect.any(Number));
-    expect(employee.email).toEqual(expect.any(String));
-})
+//jest.mock('../lib/Employee');
 
 //test getting name from user
+test('gets an employee object', () => {
+    const employee = new Employee('Sarah', 123, 'vic@gmial.com');
 
-//test getting id from user
+    expect(employee.getName()).toBe('Sarah');
+    expect(employee.getId()).toEqual(expect.any(Number));
+    expect(employee.getEmail()).toBe('vic@gmial.com');
 
-//test getting email from user
+})
+
+test('getRole() returns the correct role', () => {
+    const roleTest = "Employee";
+    const employee = new Employee('Sarah', 123, 'vic@gmial.com')
+    expect(employee.getRole()).toBe(roleTest);
+})
