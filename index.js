@@ -2,6 +2,7 @@ const Employee = require('./lib/Employee');
 const Manager = require('./lib/Manger');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+const generateHTML = require('./src/generateHTML');
 const fs = require('fs');
 const inquirer = require('inquirer');
 const { ADDRCONFIG } = require('dns');
@@ -10,7 +11,7 @@ teamMembers = [];
 idArray = [];
 
 function createManager() {
-    console.log("Please build your team");
+    console.log("Please build your team!");
     inquirer.prompt([
         {
             type:"input",
@@ -65,7 +66,7 @@ function createTeam() {
                 addIntern();
                 break;
             case "I don't want to add another team member":
-                //add function to create file
+                writeToFile(teamMembers);
                 //console.log("create html");
                 break;
         }
@@ -143,3 +144,13 @@ function addIntern() {
 }
 
 createManager();
+
+//function to write index.html file
+function writeToFile(teamMembers) {
+    let markdown = generateHTML(teamMembers)
+    
+    fs.writeFile('index.html', markdown, err => {
+        if (err) throw err;
+      });
+}
+
