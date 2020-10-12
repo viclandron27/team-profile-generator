@@ -56,7 +56,7 @@ function createTeam() {
         }
     ])
     .then(userChoice => {
-        console.log("userChoice inside of createTeam(): ", userChoice);
+        //console.log("userChoice inside of createTeam(): ", userChoice);
 
         switch (userChoice.memberChoice) {
             case "Engineer":

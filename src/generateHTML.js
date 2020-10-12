@@ -20,7 +20,7 @@ function generateHTML(teamMembers) {
                 <div class="card">
                     <div class="title">
                         <h1 class="card-title">${teamMembers[0].name}</h1>
-                        <h2>role</h2>
+                        <h2>Manager</h2>
                     </div>
 
                     <div class="card-body" >
@@ -39,13 +39,13 @@ function generateHTML(teamMembers) {
                                 </tbody>
                             </table>
                         </div>
-                    <div>
-                <div>
+                    </div>
+                </div>
 
                 <div class="card">
                     <div class="title">
                         <h1 class="card-title">${teamMembers[1].name}</h1>
-                        <h2>role</h2>
+                        <h2>Engineer</h2>
                     </div>
 
                     <div class="card-body" >
@@ -64,13 +64,13 @@ function generateHTML(teamMembers) {
                                 </tbody>
                             </table>
                         </div>
-                    <div>
-                <div>
+                    </div>
+                </div>
 
                 <div class="card">
                     <div class="title">
                         <h1 class="card-title">${teamMembers[2].name}</h1>
-                        <h2>role</h2>
+                        <h2>Intern</h2>
                     </div>
 
                     <div class="card-body" >
@@ -89,8 +89,8 @@ function generateHTML(teamMembers) {
                                 </tbody>
                             </table>
                         </div>
-                    <div>
-                <div>
+                    </div>
+                </div>
             </section>
 
         </body>
