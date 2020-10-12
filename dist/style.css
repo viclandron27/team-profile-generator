@@ -1,0 +1,32 @@
+header {
+    background: grey;
+    text-align: center;
+}
+
+tr {
+    border: grey
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.team {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    color: white;
+}
+
+.card {
+    margin-top: 60px;
+    margin: 30px 10px 10px 10px;
+}
+
+.title {
+    padding-left: 15px;
+    padding-top: 15px;
+    background: grey;
+    color: white;
+}
